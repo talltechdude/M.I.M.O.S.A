@@ -96,6 +96,7 @@ jobs:
           path: ./dist
       - name: create release
         id: create_release
+        if: needs.version.outputs.version_type != 'none'
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -109,6 +110,7 @@ jobs:
           prerelease: false
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
+        if: needs.version.outputs.version_type != 'none'
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./dist/mimosa.exe
