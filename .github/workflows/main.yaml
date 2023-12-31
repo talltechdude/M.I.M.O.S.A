@@ -69,6 +69,9 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: ${{ env.REGISTRY }}
+      - name: Prepare Registry Names
+        run: |
+          echo IMAGE_REPOSITORY=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]') >> $GITHUB_ENV          
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
@@ -77,8 +80,8 @@ jobs:
           platforms: linux/amd64,linux/arm64 # Adjust the platforms as needed
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ github.repository }}/mimosa:latest
-            ${{ env.REGISTRY }}/${{ github.repository }}//mimosa:${{ needs.build.outputs.version }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/mimosa:latest
+            ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}/mimosa:${{ needs.build.outputs.version }}
 
   release:
     runs-on: ubuntu-latest
