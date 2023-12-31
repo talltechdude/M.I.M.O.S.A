@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - Main
+  workflow_dispatch: # Allow manual re-runs
 
 env:
   REGISTRY: ghcr.io
