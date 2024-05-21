@@ -7,6 +7,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
+RUN mkdir /data
+WORKDIR /data
+
+VOLUME [ "/data" ]
+
 EXPOSE 5000 
 
-CMD [ "python", "./app.py" ]
+CMD [ "python", "/usr/src/app/app.py" ]

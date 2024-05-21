@@ -1,0 +1,11 @@
+version: "3.8"
+services:
+  mimosa:
+    restart: unless-stopped
+    image: ghcr.io/talltechdude/m.i.m.o.s.a/mimosa:v0.0.0
+    ports:
+      - 5000:5000
+    volumes:
+      - mimosa:/data
+volumes:
+  mimosa:
