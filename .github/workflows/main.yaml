@@ -46,7 +46,7 @@ jobs:
           export BRANCHTRANSLATED=$(echo ${BRANCH} | tr '/' '_')
           echo "short_ref: ${BRANCHTRANSLATED}"
           export VERSION=""
-          if ${{ steps.version.outputs.version_type != 'none' }}; then
+          if ${{ steps.version.outputs.version_type != 'none' && github.ref == 'refs/heads/Main' }}; then
             export VERSION=${{ steps.version.outputs.version }}
           else
             export VERSION=${BRANCHTRANSLATED}_$(git rev-parse --short=12 HEAD)
